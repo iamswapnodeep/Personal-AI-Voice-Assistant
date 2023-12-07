@@ -13,7 +13,7 @@ def speak(text_message):
     engine.setProperty('voice', id)
     engine.say(text = text_message)
     engine.runAndWait()
-    
+
 # << Test Part >>
 #speak("Good evening Boss, I'm Pearl, Your personalized AI assistant.")
 
