@@ -9,7 +9,7 @@ DAVID = 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US
 # Function for text-to-speach:
 def speak(text_message):
     engine = pyttsx3.init()
-    id = HAZEL
+    id = ZIRA
     engine.setProperty('voice', id)
     engine.say(text = text_message)
     engine.runAndWait()
@@ -18,15 +18,15 @@ def speak(text_message):
 #speak("Good evening Boss, I'm Pearl, Your personalized AI assistant.")
 
 # Function for input to the AI:
-def speechrecognition():
+def voiceInput():
     r = sr.Recognizer()
     with sr.microphone() as source:
         print("Listening....")
         r. pause_threshold=1
-        audio = r. listen(source,0,8)
+        audio = r.listen(source,0,8)
     
     try:
-        print( "Recogizing. ... ")
+        print("Recognizing. ... ")
         query = r.recognize_google(audio,language="en")
         return query.lower()
     
@@ -34,4 +34,4 @@ def speechrecognition():
         return ""
 
 # << Test Part >>
-#print(speechrecognition())
+#print(voiceInput())
