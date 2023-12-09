@@ -1,5 +1,7 @@
 import pyttsx3
 import speech_recognition as sr
+import datetime
+import requests
 
 # <<< Voice Samples >>>
 HAZEL = 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-GB_HAZEL_11.0' #FEMALE
@@ -35,3 +37,30 @@ def voiceInput():
 
 # << Test Part >>
 #print(voiceInput())
+
+BASE_URL = "https://api.openweathermap.org/data/2.5/weather?"
+CITY = "Kolkata"
+API_KEY = "46afb3af322e7f76dbc9a97c8bce75c1"
+URL = BASE_URL + "q=" + CITY + "&appid=" + API_KEY
+response = requests.get(URL)
+def get_weather_report():
+    if response.status_code == 200:
+        data = response.json() 
+        main = data['main']
+        temperature = round(main['temp']-273)
+        humidity = main['humidity']
+        pressure = main['pressure']
+        report = data['weather']
+        finalWeatherReport = (f"The temparature today in {CITY} is {temperature} degree celcius.\nHumidity in air is\
+ {humidity}%.\nPressure is {pressure} hectoPascal.\nWeather type is {report[0]['description']}.\
+\nThat's all, sir! ")
+        return finalWeatherReport
+    else:
+        return("Error in the HTTP request")
+    
+def get_date():
+    d = datetime.date.today().strftime("%B %d, %Y")
+    return(f"Today is the{d}.")
+def get_time():
+    t = datetime.datetime.now().time().strftime("%H:%M")
+    return(f"Now The time is {t}")
